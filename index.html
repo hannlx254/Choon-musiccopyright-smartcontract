@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choon Music Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Choon Music</h1>
+                <p>Blockchain Music Platform</p>
+            </div>
+            <div class="wallet-info">
+                <button id="connectWallet" class="btn btn-primary" onclick="connectWallet()">Connect Wallet</button>
+                <div id="accountInfo" class="hidden">
+                    <p>Address: <span id="userAddress"></span></p>
+                    <p>Balance: <span id="userBalance"></span> ETH</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="status-message" id="statusMessage"></div>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="artist">Artist</button>
+            <button class="tab-btn" data-tab="listener">Listener</button>
+            <button class="tab-btn" data-tab="playlists">Playlists</button>
+            <button class="tab-btn" data-tab="admin">Admin</button>
+        </div>
+
+        <div class="tab-content active" id="artist">
+            <div class="card">
+                <h2>Register as Artist</h2>
+                <form id="registerArtistForm">
+                    <div class="form-group">
+                        <label for="artistName">Artist Name</label>
+                        <input type="text" id="artistName" placeholder="Enter your artist name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileHash">Profile Hash (IPFS)</label>
+                        <input type="text" id="profileHash" placeholder="IPFS hash for your profile data" required>
+                        <small>For testing, you can enter any string</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Upload Track</h2>
+                <form id="uploadTrackForm">
+                    <div class="form-group">
+                        <label for="trackTitle">Track Title</label>
+                        <input type="text" id="trackTitle" placeholder="Enter track title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="trackDataHash">Track Data Hash (IPFS)</label>
+                        <input type="text" id="trackDataHash" placeholder="IPFS hash for track data" required>
+                        <small>For testing, you can enter any string</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="pricePerStream">Price Per Stream (ETH)</label>
+                        <input type="number" id="pricePerStream" placeholder="0.001" step="0.000001" min="0" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload Track</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Your Tracks</h2>
+                <div id="artistTracks" class="tracks-list">
+                    <p class="empty-message">Your uploaded tracks will appear here</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Withdraw Earnings</h2>
+                <div class="earnings-info">
+                    <p>Your earnings: <span id="artistEarnings">0</span> ETH</p>
+                </div>
+                <button id="withdrawEarnings" class="btn btn-primary">Withdraw</button>
+            </div>
+        </div>
+
+        <div class="tab-content" id="listener">
+            <div class="card">
+                <h2>All Tracks</h2>
+                <div id="allTracks" class="tracks-list">
+                    <p class="empty-message">Available tracks will appear here</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Stream Track</h2>
+                <form id="streamTrackForm">
+                    <div class="form-group">
+                        <label for="streamTrackId">Track ID</label>
+                        <input type="text" id="streamTrackId" placeholder="Enter track ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="streamAmount">Amount to Pay (ETH)</label>
+                        <input type="number" id="streamAmount" placeholder="0.001" step="0.000001" min="0" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Stream Track</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="tab-content" id="playlists">
+            <div class="card">
+                <h2>Create Playlist</h2>
+                <form id="createPlaylistForm">
+                    <div class="form-group">
+                        <label for="playlistName">Playlist Name</label>
+                        <input type="text" id="playlistName" placeholder="Enter playlist name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="playlistTracks">Track IDs (comma separated)</label>
+                        <textarea id="playlistTracks" placeholder="Enter track IDs separated by commas"
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Playlist</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Your Playlists</h2>
+                <div id="userPlaylists" class="playlists-list">
+                    <p class="empty-message">Your playlists will appear here</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>View Playlist</h2>
+                <form id="viewPlaylistForm">
+                    <div class="form-group">
+                        <label for="playlistId">Playlist ID</label>
+                        <input type="text" id="playlistId" placeholder="Enter playlist ID" required>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">View Playlist</button>
+                </form>
+                <div id="playlistDetails" class="playlist-details hidden">
+                    <h3 id="viewPlaylistName"></h3>
+                    <p>Creator: <span id="playlistCreator"></span></p>
+                    <p>Created: <span id="playlistCreationDate"></span></p>
+                    <h4>Tracks:</h4>
+                    <ul id="playlistTracksList"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="admin">
+            <div class="card">
+                <h2>Platform Settings</h2>
+                <div class="form-group">
+                    <label for="platformFee">Platform Fee (%)</label>
+                    <input type="number" id="platformFee" min="0" max="30" placeholder="10">
+                </div>
+                <button id="updateFee" class="btn btn-primary">Update Fee</button>
+            </div>
+
+            <div class="card">
+                <h2>Transfer Ownership</h2>
+                <div class="form-group">
+                    <label for="newOwner">New Owner Address</label>
+                    <input type="text" id="newOwner" placeholder="0x...">
+                </div>
+                <button id="transferOwnership" class="btn btn-danger">Transfer Ownership</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="trackModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Track Details</h2>
+            <div id="trackDetails">
+                <p>Title: <span id="modalTrackTitle"></span></p>
+                <p>Artist: <span id="modalTrackArtist"></span></p>
+                <p>Upload Date: <span id="modalTrackDate"></span></p>
+                <p>Stream Count: <span id="modalTrackStreams"></span></p>
+                <p>Price Per Stream: <span id="modalTrackPrice"></span> ETH</p>
+                <div class="track-actions">
+                    <button id="modalStreamTrack" class="btn btn-primary">Stream This Track</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Choon Music Platform. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
