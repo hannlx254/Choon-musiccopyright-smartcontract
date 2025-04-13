@@ -1,5 +1,5 @@
-Bước 1. Deploy smart contract ChoonMusicPlatform.sol trên https://remix.ethereum.org/
-Bước 2. Lấy ABI và Address của smart contract.
-Bước 3. Copy ABI và thay vào contractABI trong file app.js (có hướng dẫn cụ thể bằng comments trong app.js).
-Bước 4. Copy Address và thay vào contractAddress trong file app.js (có hướng dẫn cụ thể bằng comments trong app.js).
-Bước 5. Nhấn vào file index.html trong khi ở trong folder máy tính để chạy web trên trình duyệt.
+Step 1. Deploy the smart contract ChoonMusicPlatform.sol on https://remix.ethereum.org/
+Step 2. Obtain the ABI and Address of the smart contract.
+Step 3. Copy the ABI and replace the contractABI in the app.js file (there are specific instructions in the comments within app.js).
+Step 4. Copy the Address and replace the contractAddress in the app.js file (there are specific instructions in the comments within app.js).
+Step 5. Click on the index.html file while inside the folder on your computer to run the web app in your browser.
